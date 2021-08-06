@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Using Analytics in HTML</title>
+    <!-- Include `analytics` from CDN -->
+    <!-- <script src="https://unpkg.com/analytics/dist/analytics.min.js"></script>
+    <script src="https://unpkg.com/@analytics/google-analytics/dist/@analytics/google-analytics.min.js"></script> -->
+    <script type="text/javascript">
+      function ccmClickListener(e) {
+        var clickedElement = window.event ? window.event.srcElement : e.target;
+        console.log("clickedElement.dataset", clickedElement.dataset);
+      }
+      function ccmOnloadListener(e) {
+        var pageElement = document.querySelector('#divCcmOnLoad');
+        console.log("pageElement.dataset ", pageElement.dataset);
+      }
+      document.onclick = ccmClickListener;
+      document.onLoad = ccmOnloadListener;
+    </script>
+  </head>
+  <body data-ccm-ananlytics-auto-tracking-enabled=true>
+    <h1>
+      Using Analytics with regular HTML
+    </h1>
+    <p>
+      Open the console to see page views firing. Also checkout the networks tab
+    </p>
+    <button
+      data-ccm-ananlytics-type="track"
+      data-ccm-ananlytics-title="First Click Event"
+      data-ccm-ananlytics-properties='{"name":"John","age":30,"city":"New York"}'>
+      Track Click
+    </button>
+    <button
+      data-ccm-ananlytics-type="page"
+      data-ccm-ananlytics-title="First Click Event"
+      data-ccm-ananlytics-properties='{"name":"John","age":30,"city":"New York"}'>
+      Fire page view
+    </button>
+    <button>
+      Identify visitor
+    </button>
+    <p>
+      <br />
+      <a href="https://getanalytics.io/">View the docs</a>
+    </p>
+    <div id="divCcmOnLoad"
+      data-ccm-ananlytics-type="page"
+      data-ccm-ananlytics-title="First Page Event"
+      data-ccm-ananlytics-properties='{"name":"John","age":30,"city":"New York"}'></div>
+    <script type="text/javascript">
+      if (window.NodeList && !NodeList.prototype.forEach) {
+        NodeList.prototype.forEach = Array.prototype.forEach;
+      }
+      var ccmAnanlyticsAutoTrackingEnabled = document.querySelectorAll('[data-ccm-ananlytics-auto-tracking-enabled]');
+      console.log('ccmAnanlyticsAutoTrackingEnabled=ddddd>>>>>>>>>>>', ccmAnanlyticsAutoTrackingEnabled);
+      for (let i = 0; i < ccmAnanlyticsAutoTrackingEnabled.length; i++) {
+        let elem = ccmAnanlyticsAutoTrackingEnabled[i];
+        console.log("elem", elem);
+        console.log("elem.dataset", elem.dataset);
+        console.log("clickedElement.dataset.ccmAnanlyticsAutoTrackingEnabled", elem.dataset.ccmAnanlyticsAutoTrackingEnabled);
+      }
+    </script>
+  </body>
+</html>

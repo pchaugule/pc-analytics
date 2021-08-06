@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Using Analytics in HTML</title>
+  </head>
+  <body>
+    <h1>
+      Using Analytics with regular HTML
+    </h1>
+    <p>Open the console to see page views firing. Also checkout the networks tab</p>
+    <button onClick="trackEvent()">
+      Track Click
+    </button>
+    <button onClick="pageView()">
+      Fire page view
+    </button>
+    <button onClick="identifyVisitor()">
+      Identify visitor
+    </button>
+    <script src="./lib/analytics.min.js"></script>
+    <script src="./lib/indicative.js"></script>
+    <script type="text/javascript">
+      var Analytics = _analytics.init({
+        app: 'analytics-ccm',
+        plugins: [
+        analyticsIndicative({
+          apiKey: "",
+        })
+        ]
+      })
+      Analytics.page({ title: 'form started'});
+      // Analytics.on('*', ({ payload }) => {
+      //   console.log(`Event ${payload.type}`, payload)
+      // });
+      Analytics.on('track', ({ payload }) => {
+        console.log(`Event ${payload.type}`, payload)
+      });
+      Analytics.on('page', ({ payload }) => {
+        console.log(`Event ${payload.type}`, payload)
+      });
+    </script>
+    <script type="text/javascript">
+      function trackEvent() {
+        Analytics.track('buttonClicked', {name: 'John'})
+      }
+      function pageView() {
+        Analytics.page('page loaded', {name: 'John'})
+      }
+      function identifyVisitor() {
+        Analytics.identify('user-123', {
+          name: 'John',
+          adddress: 'xxx, xxxx, xxx',
+        });
+      }
+    </script>
+  </body>
+</html>
